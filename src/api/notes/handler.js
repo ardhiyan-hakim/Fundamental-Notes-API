@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+
 class NotesHandler {
   constructor(service) {
     this._service = service;
@@ -83,7 +85,26 @@ class NotesHandler {
     }
   }
 
-  deleteNoteByIdHandler(request, h) {}
+  deleteNoteByIdHandler(request, h) {
+    try {
+      const { id } = request.params;
+
+      this._service.deleteNoteById(id);
+
+      return {
+        status: 'success',
+        message: 'Catatan berhasil dihapus',
+      };
+    } catch (error) {
+      const response = h.response({
+        status: 'fail',
+        message: error.message,
+      });
+
+      response.code(404);
+      return response;
+    }
+  }
 }
 
 module.exports = NotesHandler;
