@@ -19,10 +19,10 @@ class NotesHandler {
 
       response.code(201);
       return response;
-    } catch {
+    } catch (error) {
       const response = h.response({
         status: 'fail',
-        message: 'Catatan gagal ditambahkan',
+        message: error.message,
       });
 
       response.code(400);
@@ -40,7 +40,27 @@ class NotesHandler {
     };
   }
 
-  getNoteByIdHandler() {}
+  getNoteByIdHandler(request, h) {
+    try {
+      const { id } = request.params;
+      const note = this._service.getNoteById(id);
+
+      return {
+        status: 'success',
+        data: {
+          note,
+        },
+      };
+    } catch (error) {
+      const response = h.response({
+        status: 'fail',
+        message: error.message,
+      });
+
+      response.code(404);
+      return response;
+    }
+  }
 
   putNoteByIdHandler() {}
 
