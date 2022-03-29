@@ -10,7 +10,7 @@ class NotesService {
   addNote({ title, tags, body }) {
     const id = nanoid(16);
     const createdAt = new Date().toISOString();
-    const updatedAt = createdAt();
+    const updatedAt = createdAt;
 
     const newNote = {
       title, tags, body, id, createdAt, updatedAt,
@@ -27,7 +27,7 @@ class NotesService {
     return id;
   }
 
-  getNote() {
+  getNotes() {
     return this._notes;
   }
 
