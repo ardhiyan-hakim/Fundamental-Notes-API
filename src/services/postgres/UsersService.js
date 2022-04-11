@@ -57,8 +57,6 @@ class UsersService {
 
     return result.rows[0];
   }
-
-  async
 }
 
 module.exports = UsersService;
